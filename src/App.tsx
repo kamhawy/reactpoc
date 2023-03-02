@@ -8,7 +8,7 @@ function App() {
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
-          Edit <code>src/App.tsx</code> and save to reload.
+          <code>React</code> Applicaiton with <code>Redux</code> used for handling the applicaiton state (Proof of Concept)
         </p>
         <a
           className="App-link"
