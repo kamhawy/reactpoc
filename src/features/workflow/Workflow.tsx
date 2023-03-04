@@ -1,49 +1,58 @@
-import React, { Component, useState } from 'react';
-import type { RootState } from '../../app/store';
-
-import { useSelector } from 'react-redux';
-
+import React from 'react';
 import { useAppSelector, useAppDispatch } from '../../app/hooks';
-import { addItem, selectItems, setNewItemEmployee, setNewItemComment } from './workflowSlice';
-import styles from './Workflow.module.css';
+import { addItem, setNewItemEmployee, setNewItemComment } from '../../app/rootSlice';
+import { useNavigate } from "react-router-dom";
 
-export function Workflow() {
+import {
+    makeStyles,
+    shorthands,
+    useId,
+    Input,
+    Label,
+    InputProps,
+    Button
+} from "@fluentui/react-components";
+
+const useStyles = makeStyles({
+    root: {
+        display: "flex",
+        flexDirection: "column",
+        ...shorthands.gap("2px"),
+        maxWidth: "400px",
+    },
+});
+
+export function Workflow(props: InputProps) {
     const dispatch = useAppDispatch();
-    const items = useAppSelector(selectItems);
-    let newItem = useAppSelector(state => state.workflow.newItem);
+    const newItem = useAppSelector(state => state.workflow.newItem);
+    const navigate = useNavigate();
+
+    const inputId_employee = useId("input_employee");
+    const inputId_comment = useId("input_comment");
+    const styles = useStyles();
+
+    const handleAddNewItem = function () {
+        dispatch(addItem(newItem));
+        navigate("/inbox");
+    };
 
     return (
         <>
-            <div>
-                <label>Employee</label>
-                <input
-                    title='Employee'
-                    value={newItem.employee}
-                    onChange={(e) => dispatch(setNewItemEmployee(e.target.value))}>
-                </input>
+            <div className={styles.root}>
+                <Label htmlFor={inputId_employee} size={props.size} disabled={props.disabled}>
+                    Employee
+                </Label>
+                <Input id={inputId_employee} value={newItem.employee} {...props} onChange={(e) => dispatch(setNewItemEmployee(e.target.value))} />
             </div>
-            <div>
-                <label>Comment</label>
-                <input
-                    title='Comment'
-                    value={newItem.comment}
-                    onChange={(e) => dispatch(setNewItemComment(e.target.value))}>
-                </input>
+            <div className={styles.root}>
+                <Label htmlFor={inputId_comment} size={props.size} disabled={props.disabled}>
+                    Comment
+                </Label>
+                <Input id={inputId_comment} value={newItem.comment} {...props} onChange={(e) => dispatch(setNewItemComment(e.target.value))} />
             </div>
-            <button
-                onClick={() => {
-                    dispatch(addItem(newItem));
-                }}>
-                Test
-            </button>
-            <div>{items.length}</div>
-            <ul>
-                {items.map((item) =>
-                    <li key={item.key}>
-                        {item.employee}
-                    </li>
-                )}
-            </ul>
+            <Button appearance='primary' onClick={handleAddNewItem}>
+                Save New Item
+            </Button>
         </>
     );
 };

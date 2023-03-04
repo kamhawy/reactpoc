@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { RootState, AppThunk } from '../../app/store';
+import { RootState, AppThunk } from './store';
 
 export interface WorkflowItem {
     key?: number,
@@ -27,6 +27,8 @@ export const workflowSlice = createSlice({
                 employee: action.payload.employee,
                 comment: action.payload.comment
             }];
+            state.newItem.employee = "";
+            state.newItem.comment = "";
         },
         setNewItemEmployee: (state, action: PayloadAction<string>) => {
             state.newItem.employee = action.payload;

@@ -1,9 +1,9 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
-import workflowReducer from "../features/workflow/workflowSlice";
+import rootReducer from "./rootSlice";
 
 export const store = configureStore({
     reducer: {
-        workflow: workflowReducer
+        workflow: rootReducer
     }
 });
 
