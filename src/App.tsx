@@ -1,26 +1,14 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import { Workflow } from './features/workflow/Workflow';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          <code>React</code> Applicaiton with <code>Redux</code> used for handling the applicaiton state (Proof of Concept)
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+	
+	return (
+		<div className="App">
+			<Workflow />
+		</div>
+	);
 }
 
 export default App;
